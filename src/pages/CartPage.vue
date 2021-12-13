@@ -44,9 +44,17 @@
           style="position: relative;"
           :disabled="updatingProductAmount"
           >
-            <PreloaderComponent v-if="updatingProductAmount" :preloader-size="30" :background-color="'#9eff00'" />
+            <PreloaderComponent
+            v-if="updatingProductAmount || deletingProductLoad"
+            :preloader-size="30"
+            :background-color="'#9eff00'"
+            />
             Оформить заказ
           </button>
+
+          <div v-if="deletingProductFail" style="padding: 10px 0; color: orangered">
+            Не удалось удалить товар
+          </div>
         </div>
       </form>
     </section>
@@ -68,6 +76,8 @@ export default {
   data() {
     return {
       updatingProductAmount: false,
+      deletingProductLoad: false,
+      deletingProductFail: false,
     };
   },
   filters: {
@@ -81,6 +91,8 @@ export default {
   },
   created() {
     eventBus.$on('updatingItemAmount', (isUpdating) => { this.updatingProductAmount = isUpdating; });
+    eventBus.$on('deletingProduct', (isDeleting) => { this.deletingProductLoad = isDeleting; });
+    eventBus.$on('deletingProductFail', (isFail) => { this.deletingProductFail = isFail; });
   },
 };
 </script>

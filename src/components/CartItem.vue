@@ -38,6 +38,7 @@
 import { mapActions } from 'vuex';
 import CartCounter from '@/components/CartCounter.vue';
 import numberFormat from '@/helpers/numberFormat';
+import eventBus from '@/eventBus';
 
 export default {
   name: 'CartItem',
@@ -52,8 +53,30 @@ export default {
   },
   methods: {
     ...mapActions({
-      deleteProduct: 'deleteCartProduct',
+      deleteCartProduct: 'deleteCartProduct',
     }),
+
+    deleteProduct(productId) {
+      this.deletingFail(false);
+
+      this.deleteCartProduct(productId)
+        .then((res) => {
+          if (res === '500') {
+            this.deletingFail(true);
+          }
+        })
+        .finally(() => {
+          this.deletingProduct(false);
+        });
+      this.deletingProduct(true);
+    },
+
+    deletingProduct(isDeleting) {
+      eventBus.$emit('deletingProduct', isDeleting);
+    },
+    deletingFail(isFail) {
+      eventBus.$emit('deletingProductFail', isFail);
+    },
   },
 };
 </script>
