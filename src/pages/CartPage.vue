@@ -38,11 +38,16 @@
             Итого: <span>{{ totalPrice | numberFormat }} ₽</span>
           </p>
 
-          <button
+          <CatalogRedirect v-if="products.length <= 0" />
+
+          <router-link
+          tag="button"
+          :to="{name: 'order'}"
           class="cart__button button button--primery"
           type="submit"
           style="position: relative;"
           :disabled="updatingProductAmount"
+          v-if="products.length > 0"
           >
             <PreloaderComponent
             v-if="updatingProductAmount || deletingProductLoad"
@@ -50,7 +55,7 @@
             :background-color="'#9eff00'"
             />
             Оформить заказ
-          </button>
+          </router-link>
 
           <div v-if="deletingProductFail" style="padding: 10px 0; color: orangered">
             Не удалось удалить товар
@@ -64,6 +69,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import CartItem from '@/components/CartItem.vue';
+import CatalogRedirect from '@/components/CatalogRedirect.vue';
 import numberFormat from '@/helpers/numberFormat';
 import PreloaderComponent from '@/components/PreloaderComponent.vue';
 import eventBus from '@/eventBus';
@@ -72,6 +78,7 @@ export default {
   components: {
     CartItem,
     PreloaderComponent,
+    CatalogRedirect,
   },
   data() {
     return {

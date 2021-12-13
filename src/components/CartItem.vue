@@ -15,7 +15,7 @@
       Артикул: {{ item.productId }}
     </span>
 
-    <CartCounter :is-class="true" :item-amount="item.amount" :id="item.productId" />
+    <CartCounter class="product__counter" :item-amount="item.amount" :id="item.productId" />
 
     <b class="product__price">
       {{ (item.product.price * item.amount) | numberFormat }} ₽
