@@ -67,6 +67,9 @@ export default new Vuex.Store({
         (item.product.price * item.amount) + acc
       ), 0);
     },
+    cartTotalAmount(state, getters) {
+      return getters.cartDetailProducts.length;
+    },
   },
   actions: {
     loadOrderInfo(context, orderId) {

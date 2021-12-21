@@ -23,7 +23,7 @@
         Корзина
       </h1>
       <span class="content__info">
-        3 товара
+        Товаров в заказе: {{ totalProductsAmount }}
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import axios from 'axios';
 import OrderCartBlock from '@/components/OrderCartBlock.vue';
 import BaseFormText from '@/components/BaseFormText.vue';
@@ -144,6 +144,15 @@ export default {
       formErrorMessage: '',
       formLoading: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      totalAmount: 'cartTotalAmount',
+    }),
+
+    totalProductsAmount() {
+      return this.totalAmount;
+    },
   },
   methods: {
     ...mapMutations({

@@ -282,7 +282,10 @@ export default {
           this.productData = res.data;
           this.currentColorId = res.data.colors[0].id;
         })
-        .catch(() => { this.productLoadingFailed = true; })
+        .catch(() => {
+          this.productLoadingFailed = true;
+          this.$router.push({ name: 'notFound' });
+        })
         .finally(() => { this.productLoading = false; });
     },
     increment() {
