@@ -1,4 +1,4 @@
-# practice
+# vue tech store
 
 ## Project setup
 ```
