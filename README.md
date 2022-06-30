@@ -1,5 +1,7 @@
 # vue tech store
 
+## App is available on https://incatwetrust.github.io/vue-app/#/
+
 ## Project setup
 ```
 npm install
